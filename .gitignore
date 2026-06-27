@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+.venv/
+last-phone-qr*.png
+fixed-test-qr.png
+.phone_voice_token
+.phone_voice_settings.json
+
+# Local development and generated output
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+*.spec
+*.log
+gui-preview*.png
+compact-*-preview.png

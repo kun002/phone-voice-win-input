@@ -1,0 +1,15 @@
+{
+  "settings": {
+    "autoFinishDelayMs": 15000,
+    "clipboardProtect": true,
+    "defaultInputMode": "mirror",
+    "defaultSyncSpeed": "fast",
+    "foregroundRestore": true,
+    "nativeWrite": true,
+    "returnPreviousForeground": false,
+    "tailRevisionMaxChars": 200,
+    "targetClickRestore": true,
+    "targetLockTimeoutSeconds": 60,
+    "writeMethod": "unicode"
+  }
+}
