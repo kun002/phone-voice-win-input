@@ -100,6 +100,7 @@ python -m pip install -r .\requirements-gui.txt
 运行自检：
 
 ```powershell
+python -m pip install -r .\requirements-selftest.txt
 python .\phone_voice_win_input.py --self-test
 ```
 

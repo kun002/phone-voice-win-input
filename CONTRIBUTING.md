@@ -4,8 +4,8 @@ Contributions are welcome.
 
 ## Development
 
-The core service uses the Python standard library. The optional desktop GUI
-uses PySide6.
+The core service uses the Python standard library. PNG QR output in the browser
+and the optional desktop GUI need a couple of lightweight packages.
 
 ```powershell
 python -m pip install -r .\requirements-gui.txt

@@ -34,7 +34,7 @@ from qr_util import QrError, make_qr_ascii, make_qr_matrix, make_qr_png_bytes, m
 
 
 APP_NAME = "Phone Voice to Windows Input"
-APP_VERSION = "v0.1.0"
+APP_VERSION = "v0.1.1"
 DEFAULT_PORT = 8765
 MAX_BODY_BYTES = 256 * 1024
 PORT_RETRY_COUNT = 50
@@ -3222,7 +3222,7 @@ def manifest_payload(token: str = "") -> dict[str, Any]:
 
 
 def render_service_worker() -> str:
-    return """const CACHE_NAME = "phone-voice-win-input-v0.1.0";
+    return """const CACHE_NAME = "phone-voice-win-input-v0.1.1";
 const APP_SHELL = ["/icon.svg"];
 
 self.addEventListener("install", (event) => {
@@ -4512,7 +4512,7 @@ def run_self_test() -> None:
     assert "continuousSpeechButton" not in page
     assert "liveToggle" not in page
     assert APP_VERSION in page
-    assert "phone-voice-win-input-v0.1.0" in render_service_worker()
+    assert "phone-voice-win-input-v0.1.1" in render_service_worker()
     assert WindowsTextInjector._native_write_supported_class("Edit") is True
     assert WindowsTextInjector._native_write_supported_class("RichEdit20W") is True
     assert WindowsTextInjector._native_write_supported_class("WindowsForms10.EDIT.app.0.141b42a_r8_ad1") is True
