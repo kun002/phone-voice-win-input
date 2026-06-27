@@ -12,6 +12,7 @@ fixed-test-qr.png
 .ruff_cache/
 build/
 dist/
+release/
 *.spec
 *.log
 gui-preview*.png

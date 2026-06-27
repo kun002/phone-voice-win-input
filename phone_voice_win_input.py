@@ -16,6 +16,7 @@ import hashlib
 import html
 import ipaddress
 import json
+import os
 import pathlib
 import queue
 import secrets
@@ -33,7 +34,7 @@ from qr_util import QrError, make_qr_ascii, make_qr_matrix, make_qr_png_bytes, m
 
 
 APP_NAME = "Phone Voice to Windows Input"
-APP_VERSION = "v36"
+APP_VERSION = "v0.1.0"
 DEFAULT_PORT = 8765
 MAX_BODY_BYTES = 256 * 1024
 PORT_RETRY_COUNT = 50
@@ -41,7 +42,11 @@ WEBSOCKET_GUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
 DEVICE_TIMEOUT_SECONDS = 12
 PREVIEW_SNIPPET_CHARS = 120
 MAX_ERROR_LOG = 20
-PROJECT_DIR = pathlib.Path(__file__).resolve().parent
+PROJECT_DIR = (
+    pathlib.Path(sys.executable).resolve().parent
+    if getattr(sys, "frozen", False)
+    else pathlib.Path(__file__).resolve().parent
+)
 LAST_QR_PATH = PROJECT_DIR / "last-phone-qr.png"
 TOKEN_PATH = PROJECT_DIR / ".phone_voice_token"
 SETTINGS_PATH = PROJECT_DIR / ".phone_voice_settings.json"
@@ -3217,7 +3222,7 @@ def manifest_payload(token: str = "") -> dict[str, Any]:
 
 
 def render_service_worker() -> str:
-    return """const CACHE_NAME = "phone-voice-win-input-v36";
+    return """const CACHE_NAME = "phone-voice-win-input-v0.1.0";
 const APP_SHELL = ["/icon.svg"];
 
 self.addEventListener("install", (event) => {
@@ -4507,7 +4512,7 @@ def run_self_test() -> None:
     assert "continuousSpeechButton" not in page
     assert "liveToggle" not in page
     assert APP_VERSION in page
-    assert "phone-voice-win-input-v36" in render_service_worker()
+    assert "phone-voice-win-input-v0.1.0" in render_service_worker()
     assert WindowsTextInjector._native_write_supported_class("Edit") is True
     assert WindowsTextInjector._native_write_supported_class("RichEdit20W") is True
     assert WindowsTextInjector._native_write_supported_class("WindowsForms10.EDIT.app.0.141b42a_r8_ad1") is True
@@ -5959,6 +5964,10 @@ def save_qr_pngs(urls: list[str]) -> list[pathlib.Path]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    if sys.stdout is None:
+        sys.stdout = open(os.devnull, "w", encoding="utf-8")
+    if sys.stderr is None:
+        sys.stderr = open(os.devnull, "w", encoding="utf-8")
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(line_buffering=True)
     args = build_parser().parse_args(argv)
